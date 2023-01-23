@@ -1,0 +1,30 @@
+version: "3.5"
+
+services:
+  server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    working_dir: /app
+    volumes:
+      - .:/app
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mydb
+    command: go run main.go
+    restart: always
+  mydb:
+    image: mysql/mysql-server
+    container_name: golang_db
+    tty: true
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: game
+      MYSQL_ROOT_PASSWORD: 12345678
+      MYSQL_USER: heidashuai
+      MYSQL_PASSWORD: 12345678
+    volumes:
+      - /etc/mysql/my.cnf
+      - ./db_mysql:/docker-entrypoint-initdb.d/

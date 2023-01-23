@@ -14,8 +14,4 @@ CMD go mod tidy
 
 CMD go get -u github.com/gin-gonic/gin
 
-RUN go build main.go
-
 EXPOSE 8080
-
-ENTRYPOINT ["./main"]
