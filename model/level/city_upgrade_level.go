@@ -4,18 +4,18 @@ import "game/model/probability"
 
 type CityUpgradeLevel struct {
 	probability  probability.Probabilityer
-	currentLevel Level
+	currentLevel *Level
 }
 
 func NewCityUpgradeLevel() *CityUpgradeLevel {
 	return &CityUpgradeLevel{
-		probability:  probability.NewCityUpgradeProbability(0),
-		currentLevel: 0,
+		probability:  probability.NewCityUpgradeProbability(),
+		currentLevel: ZeroLevel(),
 	}
 }
 
 func (c CityUpgradeLevel) Incr() bool {
-	if c.probability.IsSucceed() {
+	if c.probability.IsSucceed(c.currentLevel.Value()) {
 		return c.currentLevel.Incr()
 	}
 	return false

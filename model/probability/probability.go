@@ -1,5 +1,5 @@
 package probability
 
 type Probabilityer interface {
-	IsSucceed() bool
+	IsSucceed(level int64) bool
 }

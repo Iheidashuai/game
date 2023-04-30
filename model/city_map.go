@@ -16,7 +16,7 @@ type city struct {
 	Name         string           `json:"name"`
 	Location     *cityLocation    `json:"location"`
 	Image        string           `json:"image"`
-	Level        level.Level      `json:"level"`
+	Level        *level.Level     `json:"level"`
 	OwnerId      int              `json:"owner_id"`
 	Neighbors    []int            `json:"neighbors"`
 	neighborsMap map[int]struct{} `json:"-"`
@@ -67,7 +67,7 @@ func NewTestCities() []*city {
 			Ordinate: 110,
 		},
 		Image:   "",
-		Level:   0,
+		Level:   level.ZeroLevel(),
 		OwnerId: 12,
 	}
 
@@ -79,7 +79,7 @@ func NewTestCities() []*city {
 			Ordinate: 120,
 		},
 		Image: "",
-		Level: 1,
+		Level: level.NewLevel(1),
 	}
 
 	city3 := &city{
@@ -90,7 +90,7 @@ func NewTestCities() []*city {
 			Ordinate: 130,
 		},
 		Image: "",
-		Level: 2,
+		Level: level.NewLevel(2),
 	}
 
 	city4 := &city{
@@ -101,7 +101,7 @@ func NewTestCities() []*city {
 			Ordinate: 150,
 		},
 		Image: "",
-		Level: 3,
+		Level: level.NewLevel(3),
 	}
 
 	city1.addNeighbors([]*city{city2, city3})
