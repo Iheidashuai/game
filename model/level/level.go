@@ -1,6 +1,9 @@
 package level
 
-import "sync/atomic"
+import (
+	"errors"
+	"sync/atomic"
+)
 
 type Level struct {
 	value int64
@@ -27,14 +30,20 @@ func (l *Level) Value() int64 {
 }
 
 // Incr 增加 level 的值，返回是否增加成功
-func (l *Level) Incr() bool {
+func (l *Level) Incr() error {
 	origin := l.Value()
-	return atomic.AddInt64(&l.value, 1) != origin
+	if atomic.AddInt64(&l.value, 1) != origin {
+		return nil
+	}
+	return errors.New("level incr failed")
 }
 
-func (l *Level) Decr() bool {
+func (l *Level) Decr() error {
 	origin := l.Value()
-	return atomic.AddInt64(&l.value, -1) != origin
+	if atomic.AddInt64(&l.value, 1) != origin {
+		return nil
+	}
+	return errors.New("level decr failed")
 }
 
 func (l *Level) Equal(other *Level) bool {
@@ -42,6 +51,6 @@ func (l *Level) Equal(other *Level) bool {
 }
 
 type Leveler interface {
-	Incr() bool
-	Decr() bool
+	Incr() error
+	Decr() error
 }

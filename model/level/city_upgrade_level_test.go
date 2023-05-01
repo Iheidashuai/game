@@ -11,7 +11,7 @@ func TestCityUpgradeLevel_Decr(t *testing.T) {
 	n := 0
 	for {
 		n++
-		if c.Incr() {
+		if err := c.Incr(); err == nil {
 			fmt.Println("强化成功，当前等级：", c.currentLevel.Value())
 		} else {
 			c.Decr()
