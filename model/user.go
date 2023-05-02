@@ -12,9 +12,15 @@ type User struct {
 	Diamond  int64  `json:"diamond"`
 	Exp      int64  `json:"exp"`
 	Level    int64  `json:"level"`
-	Crit     int64  `json:"crit"`
-	Pierce   int64  `json:"pierce"`
-	Agile    int64  `json:"agile"`
+	// 暴击率
+	Crit int64 `json:"crit"`
+	// 穿透
+	Pierce int64 `json:"pierce"`
+	// 敏捷
+	Agile int64 `json:"agile"`
+
+	// 单独计算
+	Power int64 `json:"power"`
 }
 
 func (u *User) CheckPassword(password string) bool {
