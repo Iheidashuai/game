@@ -11,6 +11,7 @@ func (db *DB) UserByUid(ctx context.Context, uid int64) (*model.User, error) {
 	if err := row.Scan(&user.Id, &user.Name, &user.Uid, &user.Password); err != nil {
 		return nil, err
 	}
+	user.SetPower()
 	return user, nil
 }
 

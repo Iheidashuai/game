@@ -1,5 +1,7 @@
 package model
 
+import "game/model/power"
+
 type User struct {
 	Id       int64  `json:"id"`
 	Name     string `json:"name"`
@@ -28,4 +30,8 @@ func (u *User) CheckPassword(password string) bool {
 		return false
 	}
 	return u.Password == password
+}
+
+func (u *User) SetPower() {
+	u.Power = power.NewCalculationCollector(u).Collect()
 }
