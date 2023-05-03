@@ -7,24 +7,29 @@ import (
 )
 
 var (
-	dbClient *db.DB
-	err      error
+	svc *Service
 )
 
+type Service struct {
+	dbClient *db.DB
+}
+
 func init() {
-	dbClient, err = db.NewDB()
+	var err error
+	svc = &Service{}
+	svc.dbClient, err = db.NewDB()
 	if err != nil {
 		panic(err)
 	}
 }
 
 func GetUser(ctx context.Context, userId int64) (*model.UserVo, error) {
-	user, err := dbClient.UserByUid(ctx, userId)
+	user, err := svc.dbClient.UserByUid(ctx, userId)
 	if err != nil {
 		return nil, err
 	}
 
-	equipments, err := dbClient.EquipmentByIds(ctx, user.EquipmentIds())
+	equipments, err := svc.dbClient.EquipmentByIds(ctx, user.EquipmentIds())
 	if err != nil {
 		return nil, err
 	}
