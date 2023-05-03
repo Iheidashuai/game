@@ -1,7 +1,5 @@
 package model
 
-import "game/model/power"
-
 type User struct {
 	Id       int64  `json:"id"`
 	Name     string `json:"name"`
@@ -21,8 +19,45 @@ type User struct {
 	// 敏捷
 	Agile int64 `json:"agile"`
 
+	ClothesEquipmentId  int64 `json:"clothes_equipment_id"`
+	WeaponEquipmentId   int64 `json:"weapon_equipment_id"`
+	TrousersEquipmentId int64 `json:"trousers_equipment_id"`
+	ShoesEquipmentId    int64 `json:"shoes_equipment_id"`
+	HelmetEquipmentId   int64 `json:"helmet_equipment_id"`
+	BracersEquipmentId  int64 `json:"bracer_equipment_id"`
+
 	// 单独计算
 	Power int64 `json:"power"`
+}
+
+func (u *User) Vo(userEquipment *UserEquipment) *UserVo {
+	collector := NewCalculationCollector(u.WithEquipment(userEquipment))
+	vo := &UserVo{
+		Username: u.Name,
+		Clothes:  userEquipment.Clothes.Vo(),
+		Weapon:   userEquipment.Weapon.Vo(),
+		Trousers: userEquipment.Trousers.Vo(),
+		Shoes:    userEquipment.Shoes.Vo(),
+		Helmet:   userEquipment.Helmet.Vo(),
+		Bracers:  userEquipment.Bracers.Vo(),
+		Atk:      u.Atk,
+		Def:      u.Def,
+		Hp:       u.Hp,
+		Gold:     u.Gold,
+		Diamond:  u.Diamond,
+		Exp:      u.Exp,
+		Level:    u.Level,
+		Crit:     u.Crit,
+		Pierce:   u.Pierce,
+		Agile:    u.Agile,
+		Power:    collector.Collect(),
+	}
+
+	return vo
+}
+
+func (u *User) EquipmentIds() []int64 {
+	return []int64{u.ClothesEquipmentId, u.WeaponEquipmentId, u.TrousersEquipmentId, u.ShoesEquipmentId, u.HelmetEquipmentId, u.BracersEquipmentId}
 }
 
 func (u *User) CheckPassword(password string) bool {
@@ -32,6 +67,15 @@ func (u *User) CheckPassword(password string) bool {
 	return u.Password == password
 }
 
-func (u *User) SetPower() {
-	u.Power = power.NewCalculationCollector(u).Collect()
+func (u *User) WithEquipment(userEquipment *UserEquipment) *User {
+	if u == nil || userEquipment == nil {
+		return u
+	}
+	u.Atk += int64(userEquipment.Atk())
+	u.Def += int64(userEquipment.Def())
+	u.Hp += int64(userEquipment.Hp())
+	u.Crit += int64(userEquipment.Crit())
+	u.Pierce += int64(userEquipment.Pierce())
+	u.Agile += int64(userEquipment.Agile())
+	return u
 }

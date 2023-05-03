@@ -2,8 +2,6 @@ package model
 
 import (
 	"sync"
-
-	"game/model/level"
 )
 
 type cityLocation struct {
@@ -16,7 +14,7 @@ type city struct {
 	Name         string           `json:"name"`
 	Location     *cityLocation    `json:"location"`
 	Image        string           `json:"image"`
-	Level        *level.Level     `json:"level"`
+	Level        *Level           `json:"level"`
 	OwnerId      int              `json:"owner_id"`
 	Neighbors    []int            `json:"neighbors"`
 	neighborsMap map[int]struct{} `json:"-"`
@@ -67,7 +65,7 @@ func NewTestCities() []*city {
 			Ordinate: 110,
 		},
 		Image:   "",
-		Level:   level.ZeroLevel(),
+		Level:   ZeroLevel(),
 		OwnerId: 12,
 	}
 
@@ -79,7 +77,7 @@ func NewTestCities() []*city {
 			Ordinate: 120,
 		},
 		Image: "",
-		Level: level.NewLevel(1),
+		Level: NewLevel(1),
 	}
 
 	city3 := &city{
@@ -90,7 +88,7 @@ func NewTestCities() []*city {
 			Ordinate: 130,
 		},
 		Image: "",
-		Level: level.NewLevel(2),
+		Level: NewLevel(2),
 	}
 
 	city4 := &city{
@@ -101,7 +99,7 @@ func NewTestCities() []*city {
 			Ordinate: 150,
 		},
 		Image: "",
-		Level: level.NewLevel(3),
+		Level: NewLevel(3),
 	}
 
 	city1.addNeighbors([]*city{city2, city3})

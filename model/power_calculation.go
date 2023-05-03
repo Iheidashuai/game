@@ -1,16 +1,14 @@
-package power
-
-import "game/model"
+package model
 
 type Calculator interface {
 	Power() int64
 }
 
 type CalculationCollector struct {
-	user *model.User
+	user *User
 }
 
-func NewCalculationCollector(user *model.User) *CalculationCollector {
+func NewCalculationCollector(user *User) *CalculationCollector {
 	return &CalculationCollector{
 		user: user,
 	}

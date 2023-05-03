@@ -1,9 +1,7 @@
-package material
+package model
 
 import (
 	"errors"
-	"game/model"
-	"game/model/level"
 )
 
 var (
@@ -11,14 +9,14 @@ var (
 )
 
 type DiamondCheck struct {
-	currentLevel *level.Level
+	currentLevel *Level
 }
 
-func NewDiamondCheck(currentLevel *level.Level) *DiamondCheck {
+func NewDiamondCheck(currentLevel *Level) *DiamondCheck {
 	return &DiamondCheck{currentLevel: currentLevel}
 }
 
-func (d *DiamondCheck) IsSufficient(user *model.User) error {
+func (d *DiamondCheck) IsSufficient(user *User) error {
 	if user.Diamond < d.Value() {
 		return DiamondUnSufficientError
 	}

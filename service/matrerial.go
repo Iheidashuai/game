@@ -1,10 +1,9 @@
-package material
+package service
 
 import (
 	"context"
 	"game/db"
 	"game/model"
-	"game/model/level"
 )
 
 type MaterialDecrClient interface {
@@ -13,14 +12,14 @@ type MaterialDecrClient interface {
 }
 
 type MaterialDecr struct {
-	materialType MaterialType
-	currentLevel *level.Level
+	materialType model.MaterialType
+	currentLevel *model.Level
 	user         *model.User
 	checker      *Checker
 	db           *db.DB
 }
 
-func NewMaterialDecrClient(materialType MaterialType, db *db.DB, currentLevel *level.Level) MaterialDecrClient {
+func NewMaterialDecrClient(materialType model.MaterialType, db *db.DB, currentLevel *model.Level) MaterialDecrClient {
 	return &MaterialDecr{materialType: materialType, currentLevel: currentLevel, db: db, checker: NewChecker(db)}
 }
 
@@ -37,10 +36,10 @@ func (m *MaterialDecr) Consume() error {
 	originUser := m.user
 
 	for _, condition := range conditions {
-		if _, ok := condition.(*DiamondCheck); ok {
+		if _, ok := condition.(*model.DiamondCheck); ok {
 			originUser.Diamond -= condition.Value()
 		}
-		if _, ok := condition.(*GoldCheck); ok {
+		if _, ok := condition.(*model.GoldCheck); ok {
 			originUser.Gold -= condition.Value()
 		}
 	}

@@ -1,14 +1,10 @@
-package power
-
-import (
-	"game/model"
-)
+package model
 
 type UserPowerCalculator struct {
-	user *model.User
+	user *User
 }
 
-func NewUserPowerCalculator(user *model.User) *UserPowerCalculator {
+func NewUserPowerCalculator(user *User) *UserPowerCalculator {
 	return &UserPowerCalculator{
 		user: user,
 	}

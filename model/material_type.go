@@ -1,8 +1,11 @@
-package material
-
-import "game/model/level"
+package model
 
 type MaterialType int64
+
+type IsSufficienter interface {
+	IsSufficient(user *User) error
+	Value() int64
+}
 
 const (
 	EquipmentUpgrade MaterialType = iota + 1
@@ -10,7 +13,7 @@ const (
 	CityUpgrade
 )
 
-func (m MaterialType) PickCheckerConditions(currentLevel *level.Level) []IsSufficienter {
+func (m MaterialType) PickCheckerConditions(currentLevel *Level) []IsSufficienter {
 	var checkers []IsSufficienter
 
 	switch m {

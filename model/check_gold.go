@@ -1,9 +1,7 @@
-package material
+package model
 
 import (
 	"errors"
-	"game/model"
-	"game/model/level"
 )
 
 var (
@@ -11,14 +9,14 @@ var (
 )
 
 type GoldCheck struct {
-	currentLevel *level.Level
+	currentLevel *Level
 }
 
-func NewGoldCheck(currentLevel *level.Level) *GoldCheck {
+func NewGoldCheck(currentLevel *Level) *GoldCheck {
 	return &GoldCheck{currentLevel: currentLevel}
 }
 
-func (g *GoldCheck) IsSufficient(user *model.User) error {
+func (g *GoldCheck) IsSufficient(user *User) error {
 	if user.Gold < g.Value() {
 		return GoldUnSufficientError
 	}

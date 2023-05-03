@@ -1,4 +1,4 @@
-package probability
+package model
 
 import (
 	"fmt"

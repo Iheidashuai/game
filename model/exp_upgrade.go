@@ -1,8 +1,6 @@
-package exp
+package model
 
-import "game/model/level"
-
-func isUpgrade(level *level.Level, currentExp int64) bool {
+func isUpgrade(level *Level, currentExp int64) bool {
 	if level.Value() <= 10 {
 		return currentExp >= 100*level.Value()
 	}

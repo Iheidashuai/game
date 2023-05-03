@@ -10,7 +10,7 @@ type DB struct {
 }
 
 func NewDB() (*DB, error) {
-	db, err := sql.Open("mysql", "heidashuai:12345678@tcp(mydb:3306)/game")
+	db, err := sql.Open("mysql", "root:@tcp(127.0.0.1:3306)/game")
 	if err != nil {
 		return nil, err
 	}

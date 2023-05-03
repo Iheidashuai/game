@@ -1,26 +1,25 @@
-package level
+package service
 
 import (
 	"game/db"
-	"game/model/material"
-	"game/model/probability"
+	"game/model"
 )
 
 type CityUpgradeLevel struct {
-	probability  probability.Probabilityer
-	currentLevel *Level
+	probability  model.Probabilityer
+	currentLevel *model.Level
 	db           *db.DB
 }
 
 func NewCityUpgradeLevel() *CityUpgradeLevel {
 	return &CityUpgradeLevel{
-		probability:  probability.NewCommonProbability(),
-		currentLevel: ZeroLevel(),
+		probability:  model.NewCommonProbability(),
+		currentLevel: model.ZeroLevel(),
 	}
 }
 
 func (c *CityUpgradeLevel) Incr() error {
-	materialDecrClient := material.NewMaterialDecrClient(material.CityUpgrade, c.db, c.currentLevel)
+	materialDecrClient := NewMaterialDecrClient(model.CityUpgrade, c.db, c.currentLevel)
 	if err := materialDecrClient.Check(); err != nil {
 		return err
 	}

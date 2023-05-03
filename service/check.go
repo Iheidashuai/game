@@ -1,14 +1,9 @@
-package material
+package service
 
 import (
 	"game/db"
 	"game/model"
 )
-
-type IsSufficienter interface {
-	IsSufficient(user *model.User) error
-	Value() int64
-}
 
 type Checker struct {
 	user *model.User
@@ -21,7 +16,7 @@ func NewChecker(db *db.DB) *Checker {
 	}
 }
 
-func (c *Checker) Check(conditions ...IsSufficienter) error {
+func (c *Checker) Check(conditions ...model.IsSufficienter) error {
 	for _, checker := range conditions {
 		if err := checker.IsSufficient(c.user); err != nil {
 			return err
