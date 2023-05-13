@@ -25,3 +25,8 @@ func (db *DB) QueryUserEquipment(ctx context.Context, userId int64) (map[int64]*
 
 	return res, nil
 }
+
+func (db *DB) UpdateUserEquipment(ctx context.Context, level int64, userId int64, equipmentId int64) error {
+	_, err := db.ExecContext(ctx, "UPDATE user_equipment SET enhancement_level = ? WHERE user_id = ? AND equipment_id = ?", level, userId, equipmentId)
+	return err
+}

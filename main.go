@@ -15,5 +15,8 @@ func main() {
 
 	r.GET("/user/:user_id", http.GetUser)
 
+	// 强化装备的接口
+	r.POST("/user/:user_id/equipment/:weapon_id/stronger", http.StrongerEquipment)
+
 	r.Run(":8080")
 }

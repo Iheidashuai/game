@@ -35,6 +35,10 @@ const (
 	ENHANCEMENT_LEVEL_14 = 14
 )
 
+func (el EquipmentEnhancementLevel) Value() int64 {
+	return int64(el)
+}
+
 // 获取对应强化等级可增加的倍数
 func (el EquipmentEnhancementLevel) Multiple() float64 {
 	switch el {

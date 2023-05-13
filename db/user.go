@@ -2,6 +2,7 @@ package db
 
 import (
 	"context"
+
 	"game/model"
 )
 
@@ -24,7 +25,7 @@ func (db *DB) AddUser(ctx context.Context, user *model.User) error {
 }
 
 func (db *DB) UpdateUserByUid(ctx context.Context, user *model.User) error {
-	_, err := db.Exec("update user set atk = ?,def = ?,hp = ?,gold = ?,diamond = ?,exp = ?,level = ?,crit = ?,pierce = ?,agile = ?,clothes_equipment_id = ?,weapon_equipment_id = ?,trousers_equipment_id = ?,shoes_equipment_id = ?,helmet_equipment_id = ?,bracer_equipment_id = ? where uid = ?",
+	_, err := db.Exec("update user set atk = ?,def = ?,hp = ?,gold = ?,diamond = ?,exp = ?,level = ?,crit = ?,pierce = ?,agile = ?,clothes_equipment_id = ?,weapon_equipment_id = ?,trousers_equipment_id = ?,shoes_equipment_id = ?,helmet_equipment_id = ?,bracers_equipment_id = ? where uid = ?",
 		user.Atk, user.Def, user.Hp, user.Gold, user.Diamond, user.Exp, user.Level, user.Crit, user.Pierce, user.Agile, user.ClothesEquipmentId, user.WeaponEquipmentId, user.TrousersEquipmentId, user.ShoesEquipmentId, user.HelmetEquipmentId, user.BracersEquipmentId, user.Uid)
 	if err != nil {
 		return err

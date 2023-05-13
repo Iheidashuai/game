@@ -10,9 +10,10 @@ type Checker struct {
 	db   *db.DB
 }
 
-func NewChecker(db *db.DB) *Checker {
+func NewChecker(db *db.DB, user *model.User) *Checker {
 	return &Checker{
-		db: db,
+		db:   db,
+		user: user,
 	}
 }
 

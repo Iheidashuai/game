@@ -2,6 +2,7 @@ package service
 
 import (
 	"context"
+
 	"game/db"
 	"game/model"
 )
@@ -19,8 +20,8 @@ type MaterialDecr struct {
 	db           *db.DB
 }
 
-func NewMaterialDecrClient(materialType model.MaterialType, db *db.DB, currentLevel *model.Level) MaterialDecrClient {
-	return &MaterialDecr{materialType: materialType, currentLevel: currentLevel, db: db, checker: NewChecker(db)}
+func NewMaterialDecrClient(materialType model.MaterialType, db *db.DB, currentLevel *model.Level, user *model.User) MaterialDecrClient {
+	return &MaterialDecr{materialType: materialType, currentLevel: currentLevel, db: db, checker: NewChecker(db, user), user: user}
 }
 
 func (m *MaterialDecr) Check() error {
