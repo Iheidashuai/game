@@ -2,6 +2,7 @@ package service
 
 import (
 	"context"
+
 	"game/db"
 	"game/model"
 )
@@ -34,7 +35,16 @@ func GetUser(ctx context.Context, userId int64) (*model.UserVo, error) {
 		return nil, err
 	}
 
-	return user.Vo(&model.UserEquipment{
+	userEquipments, err := svc.dbClient.QueryUserEquipment(ctx, userId)
+	if err != nil {
+		return nil, err
+	}
+
+	for _, userEquipment := range userEquipments {
+		equipments[userEquipment.EquipmentId].EnhancementLevel = userEquipment.EnhancementLevel
+	}
+
+	return user.Vo(&model.EquipmentInUse{
 		Clothes:  equipments[user.ClothesEquipmentId],
 		Trousers: equipments[user.TrousersEquipmentId],
 		Shoes:    equipments[user.ShoesEquipmentId],

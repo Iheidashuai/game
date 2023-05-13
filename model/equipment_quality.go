@@ -23,15 +23,15 @@ func (eq EquipmentQuality) Multiple() float64 {
 	case WHITE:
 		return 1
 	case GREEN:
-		return 1.1
+		return 2
 	case BLUE:
-		return 1.2
+		return 3
 	case PURPLE:
-		return 1.5
+		return 4
 	case ORANGE:
-		return 1.8
+		return 5
 	case RED:
-		return 2.0
+		return 6
 	default:
 		return 1
 	}

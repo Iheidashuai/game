@@ -2,6 +2,8 @@ package db
 
 import (
 	"context"
+	"database/sql"
+
 	"game/model"
 )
 
@@ -22,7 +24,7 @@ func (db *DB) EquipmentByIds(ctx context.Context, equipmentIds []int64) (map[int
 		row := db.QueryRow("select id,name,equipment_id,atk,def,hp,level,crit,pierce,agile,quality,type from equipment where equipment_id = ?", equipmentId)
 		equipment := &model.Equipment{}
 		if err := row.Scan(&equipment.Id, &equipment.Name, &equipment.EquipmentId, &equipment.Atk, &equipment.Def, &equipment.Hp,
-			&equipment.Level, &equipment.Crit, &equipment.Pierce, &equipment.Agile, &equipment.Quality, &equipment.Type); err != nil {
+			&equipment.Level, &equipment.Crit, &equipment.Pierce, &equipment.Agile, &equipment.Quality, &equipment.Type); err != nil && err != sql.ErrNoRows {
 			return nil, err
 		}
 		equipments[equipmentId] = equipment

@@ -30,7 +30,7 @@ type User struct {
 	Power int64 `json:"power"`
 }
 
-func (u *User) Vo(userEquipment *UserEquipment) *UserVo {
+func (u *User) Vo(userEquipment *EquipmentInUse) *UserVo {
 	collector := NewCalculationCollector(u.WithEquipment(userEquipment))
 	vo := &UserVo{
 		Username: u.Name,
@@ -67,15 +67,15 @@ func (u *User) CheckPassword(password string) bool {
 	return u.Password == password
 }
 
-func (u *User) WithEquipment(userEquipment *UserEquipment) *User {
-	if u == nil || userEquipment == nil {
+func (u *User) WithEquipment(equipmentInUse *EquipmentInUse) *User {
+	if u == nil || equipmentInUse == nil {
 		return u
 	}
-	u.Atk += int64(userEquipment.Atk())
-	u.Def += int64(userEquipment.Def())
-	u.Hp += int64(userEquipment.Hp())
-	u.Crit += int64(userEquipment.Crit())
-	u.Pierce += int64(userEquipment.Pierce())
-	u.Agile += int64(userEquipment.Agile())
+	u.Atk += int64(equipmentInUse.Atk())
+	u.Def += int64(equipmentInUse.Def())
+	u.Hp += int64(equipmentInUse.Hp())
+	u.Crit += int64(equipmentInUse.Crit())
+	u.Pierce += int64(equipmentInUse.Pierce())
+	u.Agile += int64(equipmentInUse.Agile())
 	return u
 }
